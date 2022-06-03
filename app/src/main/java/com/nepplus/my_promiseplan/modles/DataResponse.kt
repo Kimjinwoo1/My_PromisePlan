@@ -1,4 +1,7 @@
 package com.nepplus.my_promiseplan.modles
 
-class DataResponse {
+class DataResponse (
+    val user : UserData,
+    val token : String,
+        ) {
 }

@@ -38,6 +38,12 @@
             android:hint="비밀번호를 입력해주세요."
             android:inputType="textPassword"/>
 
+        <CheckBox
+            android:id="@+id/autoLoginCb"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="자동 로그인"/>
+
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/loginBtn"
             android:layout_width="match_parent"

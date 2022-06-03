@@ -1,6 +1,7 @@
 package com.nepplus.my_promiseplan.main.signup
 
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.core.widget.addTextChangedListener
 import androidx.databinding.DataBindingUtil
@@ -8,6 +9,7 @@ import com.nepplus.my_promiseplan.BasicActivity
 import com.nepplus.my_promiseplan.R
 import com.nepplus.my_promiseplan.databinding.ActivitySignUpBinding
 import com.nepplus.my_promiseplan.modles.BasicResponse
+import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -73,7 +75,41 @@ class SignUpActivity : BasicActivity() {
     }
 
     fun signUp(){
-        Toast.makeText(mContext, "회원가입", Toast.LENGTH_SHORT).show()
+        val inputEmail = binding.emailEdt.text.toString()
+        val inputPw = binding.passwordEdt.text.toString()
+        val inputNick = binding.nickEdt.text.toString()
+
+        apiList.putRequestSignUp(
+            inputEmail,
+            inputPw,
+            inputNick,
+        ).enqueue(object : Callback<BasicResponse>{
+            override fun onResponse(call: Call<BasicResponse>, response: Response<BasicResponse>) {
+                if (response.isSuccessful){
+                    val br = response.body()!!
+                    Toast.makeText(mContext, "${br.data.user.nick_name}", Toast.LENGTH_SHORT).show()
+                    finish()
+                }
+                else{
+                    val errorBodyStr = response.errorBody()!!.toString()
+                    val jsonObj = JSONObject(errorBodyStr)
+                    val code = jsonObj.getInt("code")
+                    val message = jsonObj.getString("message")
+
+                    if (code == 400){
+                        Toast.makeText(mContext, message, Toast.LENGTH_SHORT).show()
+                    }
+                    else{
+                        Log.e("회원가입","errorCode : ${code}, message : ${message}")
+                    }
+                }
+            }
+
+            override fun onFailure(call: Call<BasicResponse>, t: Throwable) {
+
+            }
+        })
+
     }
 
     fun dupCheck(type : String, value : String){
