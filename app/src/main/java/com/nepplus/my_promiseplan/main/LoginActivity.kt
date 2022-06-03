@@ -1,5 +1,6 @@
 package com.nepplus.my_promiseplan.main
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.databinding.DataBindingUtil
@@ -22,7 +23,7 @@ class LoginActivity : AppCompatActivity() {
 
         }
         binding.signUpBtn.setOnClickListener {
-
+            val myIntent = Intent()
         }
 
     }
