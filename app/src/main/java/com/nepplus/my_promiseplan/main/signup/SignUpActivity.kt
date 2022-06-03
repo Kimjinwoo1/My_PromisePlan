@@ -2,10 +2,15 @@ package com.nepplus.my_promiseplan.main.signup
 
 import android.os.Bundle
 import android.widget.Toast
+import androidx.core.widget.addTextChangedListener
 import androidx.databinding.DataBindingUtil
 import com.nepplus.my_promiseplan.BasicActivity
 import com.nepplus.my_promiseplan.R
 import com.nepplus.my_promiseplan.databinding.ActivitySignUpBinding
+import com.nepplus.my_promiseplan.modles.BasicResponse
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class SignUpActivity : BasicActivity() {
 
@@ -42,8 +47,25 @@ class SignUpActivity : BasicActivity() {
                 signUp()
             }
         }
-        binding.emailDupBtn.setOnClickListener {  }
-        binding.nickDupBtn.setOnClickListener {  }
+        binding.emailDupBtn.setOnClickListener {
+            dupCheck("EMAIL",binding.emailEdt.text.toString())
+        }
+        binding.nickDupBtn.setOnClickListener {
+            dupCheck("Nick_Name",binding.nickEdt.text.toString())
+        }
+
+        binding.emailEdt.addTextChangedListener {
+            isEmailDupOk = false
+        }
+        binding.nickEdt.addTextChangedListener {
+            isNickDupOk = false
+        }
+        binding.passwordEdt.addTextChangedListener {
+            isPwDupOk = (mContext.toString() == binding.pwDupEdt.text.toString())
+        }
+        binding.pwDupEdt.addTextChangedListener {
+            isPwDupOk = (mContext.toString() == binding.passwordEdt.text.toString())
+        }
     }
 
     override fun setValues() {
@@ -51,10 +73,27 @@ class SignUpActivity : BasicActivity() {
     }
 
     fun signUp(){
-
+        Toast.makeText(mContext, "회원가입", Toast.LENGTH_SHORT).show()
     }
 
     fun dupCheck(type : String, value : String){
+        apiList.getRequestUserCheck(type,value).enqueue(object : Callback<BasicResponse>{
+            override fun onResponse(call: Call<BasicResponse>, response: Response<BasicResponse>) {
+                if (response.isSuccessful){
+                    val br = response.body()!!
+                    Toast.makeText(mContext, br.message, Toast.LENGTH_SHORT).show()
+
+                    when(type){
+                        "EMAIL" -> isEmailDupOk = false
+                        "NICK_NAME" -> isNickDupOk = false
+                    }
+                }
+            }
+
+            override fun onFailure(call: Call<BasicResponse>, t: Throwable) {
+
+            }
+        })
 
     }
 }
