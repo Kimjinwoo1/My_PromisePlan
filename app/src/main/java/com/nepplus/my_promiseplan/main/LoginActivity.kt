@@ -18,6 +18,12 @@ class LoginActivity : AppCompatActivity() {
     }
 
     fun setupEvents(){
+        binding.loginBtn.setOnClickListener {
+
+        }
+        binding.signUpBtn.setOnClickListener {
+
+        }
 
     }
 
