@@ -10,6 +10,8 @@ class SplashActivity : BasicActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
+        setupEvents()
+        setValues()
     }
 
     override fun setupEvents() {
@@ -24,6 +26,7 @@ class SplashActivity : BasicActivity() {
             val myIntent : Intent
             myIntent = Intent(mContext, LoginActivity::class.java)
             startActivity(myIntent)
-        },3000)
+
+        },2500)
     }
 }
