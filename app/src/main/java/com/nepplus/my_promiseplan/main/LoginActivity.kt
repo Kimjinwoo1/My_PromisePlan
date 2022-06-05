@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import com.nepplus.my_promiseplan.BasicActivity
-import com.nepplus.my_promiseplan.MainActivity
 import com.nepplus.my_promiseplan.R
 import com.nepplus.my_promiseplan.databinding.ActivityLoginBinding
 import com.nepplus.my_promiseplan.main.signup.SignUpActivity
@@ -41,7 +40,7 @@ class LoginActivity : BasicActivity() {
 
                         Toast.makeText(mContext, "${br.data.user.nick_name}님 환영합니다.", Toast.LENGTH_SHORT).show()
 
-                        val myIntent = Intent(mContext,MainActivity::class.java)
+                        val myIntent = Intent(mContext, MainActivity::class.java)
                         startActivity(myIntent)
                         finish()
                     }
