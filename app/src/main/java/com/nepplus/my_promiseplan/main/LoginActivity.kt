@@ -9,6 +9,8 @@ import com.nepplus.my_promiseplan.R
 import com.nepplus.my_promiseplan.databinding.ActivityLoginBinding
 import com.nepplus.my_promiseplan.main.signup.SignUpActivity
 import com.nepplus.my_promiseplan.modles.BasicResponse
+import com.nepplus.my_promiseplan.utils.ContextUtil
+import com.nepplus.my_promiseplan.utils.GlobalData
 import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
@@ -38,7 +40,11 @@ class LoginActivity : BasicActivity() {
                     if (response.isSuccessful){
                         val br = response.body()!!
 
-                        Toast.makeText(mContext, "${br.data.user.nick_name}님 환영합니다.", Toast.LENGTH_SHORT).show()
+                        ContextUtil.setLoginToken(mContext,br.data.token)
+                        ContextUtil.setAutoLogin(mContext, binding.autoLoginCb.isChecked)
+                        GlobalData.loginUser = br.data.user
+
+                        Toast.makeText(mContext, "${GlobalData.loginUser!!.nick_name}님을 환영합니다", Toast.LENGTH_SHORT).show()
 
                         val myIntent = Intent(mContext, MainActivity::class.java)
                         startActivity(myIntent)

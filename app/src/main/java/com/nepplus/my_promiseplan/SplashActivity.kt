@@ -4,6 +4,8 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
+import android.widget.Toast
 import com.nepplus.my_promiseplan.main.LoginActivity
 import com.nepplus.my_promiseplan.main.MainActivity
 import com.nepplus.my_promiseplan.modles.BasicResponse
@@ -49,7 +51,11 @@ class SplashActivity : BasicActivity() {
 
             val myIntent : Intent
 
+            Log.d("토큰",isTokenOk.toString())
+            Log.d("CB",ContextUtil.getAutoLogin(mContext).toString())
+
             if (isTokenOk && ContextUtil.getAutoLogin(mContext)){
+                Toast.makeText(mContext, "${GlobalData.loginUser!!.nick_name}님 환영합니다.", Toast.LENGTH_SHORT).show()
                 myIntent = Intent(mContext,MainActivity::class.java)
             }
             else{
