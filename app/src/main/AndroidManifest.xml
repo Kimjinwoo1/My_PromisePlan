@@ -12,6 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.My_PromisePlan">
         <activity
+            android:name=".fragments.SetiingsFragment"
+            android:exported="false" />
+        <activity
             android:name=".main.signup.SignUpActivity"
             android:exported="false" />
         <activity
@@ -28,7 +31,7 @@
         </activity>
         <activity
             android:name=".main.MainActivity"
-            android:exported="false"/>
+            android:exported="false" />
     </application>
 
 </manifest>
