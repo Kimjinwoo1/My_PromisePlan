@@ -21,10 +21,15 @@ import com.nepplus.my_promiseplan.main.LoginActivity
 import com.nepplus.my_promiseplan.modles.BasicResponse
 import com.nepplus.my_promiseplan.utils.ContextUtil
 import com.nepplus.my_promiseplan.utils.GlobalData
+import com.nepplus.my_promiseplan.utils.URIPathHelper
+import okhttp3.MediaType
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.io.File
 
 class SettingsFragment : BaseFragment() {
 
@@ -66,6 +71,7 @@ class SettingsFragment : BaseFragment() {
             TedPermission.create()
                 .setPermissionListener(pl)
                 .setPermissions(Manifest.permission.READ_EXTERNAL_STORAGE)
+                .setDeniedMessage("[설정] > [권한]에서 갤러리 권한을 열어주세요.")
                 .check()
 
         }
@@ -177,7 +183,31 @@ class SettingsFragment : BaseFragment() {
         if (it.resultCode == Activity.RESULT_OK){
             val dataUri = it.data?.data
 
-            Glide.with(mContext).load(dataUri).into(binding.profileImg)
+          //  Glide.with(mContext).load(dataUri).into(binding.profileImg)
+
+            val file = File(URIPathHelper().getPath(mContext, dataUri!!))
+
+            val fileReqBody = RequestBody.create(MediaType.get("image/*"),file)
+            val body = MultipartBody.Part.createFormData("profile_image","myFile.jpg",fileReqBody)
+
+            apiList.putRequestUserImage(body).enqueue(object : Callback<BasicResponse>{
+                override fun onResponse(
+                    call: Call<BasicResponse>,
+                    response: Response<BasicResponse>
+                ) {
+                    if (response.isSuccessful){
+                        GlobalData.loginUser = response.body()!!.data.user
+
+                        Glide.with(mContext).load(GlobalData.loginUser!!.profileimg).into(binding.profileImg)
+
+                        Toast.makeText(mContext, "프로필 사진이 변경되었습니다.", Toast.LENGTH_SHORT).show()
+                    }
+                }
+
+                override fun onFailure(call: Call<BasicResponse>, t: Throwable) {
+
+                }
+            })
         }
     }
 
