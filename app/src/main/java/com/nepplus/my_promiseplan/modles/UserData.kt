@@ -5,7 +5,11 @@ import com.google.gson.annotations.SerializedName
 class UserData(
     val id : Int,
     val email : String,
-    val nick_name : String,
-    val profile_img : String,
+    @SerializedName("nick_name")
+    val nickname : String,
+    @SerializedName("profile_img")
+    val profileimg : String,
+    @SerializedName("ready_minute")
+    val readtminute : String,
 ) {
 }

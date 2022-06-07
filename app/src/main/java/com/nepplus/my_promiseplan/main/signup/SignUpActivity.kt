@@ -87,7 +87,7 @@ class SignUpActivity : BasicActivity() {
             override fun onResponse(call: Call<BasicResponse>, response: Response<BasicResponse>) {
                 if (response.isSuccessful){
                     val br = response.body()!!
-                    Toast.makeText(mContext, "${br.data.user.nick_name}", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(mContext, "${br.data.user.nickname}", Toast.LENGTH_SHORT).show()
                     finish()
                 }
                 else{
