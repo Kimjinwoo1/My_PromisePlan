@@ -29,6 +29,29 @@ class SettingsFragment : BaseFragment() {
     }
 
     override fun setEvents() {
+        binding.profileImg.setOnClickListener {
+
+        }
+
+        binding.changeNickLayout.setOnClickListener {
+
+        }
+
+        binding.changePwLayout.setOnClickListener {
+
+        }
+
+        binding.myWorkLayout.setOnClickListener {
+
+        }
+
+        binding.myFriendsLayout.setOnClickListener {
+
+        }
+
+        binding.logoutLayout.setOnClickListener {
+
+        }
 
     }
 

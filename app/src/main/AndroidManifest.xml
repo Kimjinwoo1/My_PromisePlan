@@ -12,6 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.My_PromisePlan">
         <activity
+            android:name=".dialogs.CustomAlertDialog"
+            android:exported="false" />
+        <activity
             android:name=".fragments.SetiingsFragment"
             android:exported="false" />
         <activity
