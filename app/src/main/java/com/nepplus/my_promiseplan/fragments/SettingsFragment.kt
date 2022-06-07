@@ -2,17 +2,25 @@ package com.nepplus.my_promiseplan.fragments
 
 import android.content.Intent
 import android.os.Bundle
+import android.text.InputType
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
+import com.bumptech.glide.Glide
 import com.nepplus.my_promiseplan.R
 import com.nepplus.my_promiseplan.databinding.FragmentInvitedAppointmentsBinding
 import com.nepplus.my_promiseplan.databinding.FragmentSettingBinding
 import com.nepplus.my_promiseplan.dialogs.CustomAlertDialog
 import com.nepplus.my_promiseplan.main.LoginActivity
+import com.nepplus.my_promiseplan.modles.BasicResponse
 import com.nepplus.my_promiseplan.utils.ContextUtil
 import com.nepplus.my_promiseplan.utils.GlobalData
+import org.json.JSONObject
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class SettingsFragment : BaseFragment() {
 
@@ -37,9 +45,51 @@ class SettingsFragment : BaseFragment() {
         binding.profileImg.setOnClickListener {
 
         }
-
+//          닉네임 변경 이벤트
         binding.changeNickLayout.setOnClickListener {
+            val alert = CustomAlertDialog(mContext,requireActivity())
+            alert.myDialog()
 
+            alert.binding.titleTxt.text = "닉네임 변경"
+            alert.binding.bodytxt.visibility = View.GONE
+            alert.binding.contentEdt.hint = "변경할 닉네임을 입력해주세요."
+            alert.binding.contentEdt.inputType = InputType.TYPE_CLASS_TEXT
+
+            alert.binding.positiveBtn.setOnClickListener {
+                apiList.patchRequestEditUserInfo(
+                    "nickname",
+                    alert.binding.contentEdt.text.toString()
+                ).enqueue(object : Callback<BasicResponse>{
+                    override fun onResponse(
+                        call: Call<BasicResponse>,
+                        response: Response<BasicResponse>
+                    ) {
+                        if (response.isSuccessful){
+                            val br = response.body()!!
+
+                            GlobalData.loginUser = br.data.user
+
+                            setUserData()
+
+                            alert.dialog.dismiss()
+                        }
+                        else{
+                            val errorBodyStr = response.errorBody()!!.string()
+                            val jsonObj = JSONObject(errorBodyStr)
+                            val message = jsonObj.getString("message")
+
+                            Toast.makeText(mContext, message, Toast.LENGTH_SHORT).show()
+                        }
+                    }
+
+                    override fun onFailure(call: Call<BasicResponse>, t: Throwable) {
+
+                    }
+                })
+            }
+            alert.binding.negativeBtn.setOnClickListener {
+                alert.dialog.dismiss()
+            }
         }
 
         binding.changePwLayout.setOnClickListener {
@@ -83,6 +133,21 @@ class SettingsFragment : BaseFragment() {
     }
 
     override fun setValues() {
+        setUserData ()
+
+        when(GlobalData.loginUser!!.provider){
+            "Kakao" -> {}
+            "facebook" -> {}
+            else -> binding.socialLogImg.visibility = View.GONE
+        }
+
+    }
+
+    fun setUserData(){
+        Glide.with(mContext)
+            .load(GlobalData.loginUser!!.profileimg)
+            .into(binding.profileImg)
+        binding.nickNameTxt.text = GlobalData.loginUser!!.nickname
 
     }
 
