@@ -1,5 +1,7 @@
 package com.nepplus.my_promiseplan.fragments
 
+import android.Manifest
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.text.InputType
@@ -7,10 +9,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.databinding.DataBindingUtil
 import com.bumptech.glide.Glide
+import com.gun0912.tedpermission.PermissionListener
+import com.gun0912.tedpermission.normal.TedPermission
 import com.nepplus.my_promiseplan.R
-import com.nepplus.my_promiseplan.databinding.FragmentInvitedAppointmentsBinding
 import com.nepplus.my_promiseplan.databinding.FragmentSettingBinding
 import com.nepplus.my_promiseplan.dialogs.CustomAlertDialog
 import com.nepplus.my_promiseplan.main.LoginActivity
@@ -43,6 +47,26 @@ class SettingsFragment : BaseFragment() {
 
     override fun setEvents() {
         binding.profileImg.setOnClickListener {
+            val pl = object : PermissionListener{
+                override fun onPermissionGranted() {
+                    val myIntent = Intent()
+
+                    myIntent.action = Intent.ACTION_PICK
+                    myIntent.type = android.provider.MediaStore.Images.Media.CONTENT_TYPE
+
+                    startForResult.launch(myIntent)
+                }
+
+                override fun onPermissionDenied(deniedPermissions: MutableList<String>?) {
+
+                }
+
+            }
+
+            TedPermission.create()
+                .setPermissionListener(pl)
+                .setPermissions(Manifest.permission.READ_EXTERNAL_STORAGE)
+                .check()
 
         }
 //          닉네임 변경 이벤트
@@ -148,7 +172,13 @@ class SettingsFragment : BaseFragment() {
             .load(GlobalData.loginUser!!.profileimg)
             .into(binding.profileImg)
         binding.nickNameTxt.text = GlobalData.loginUser!!.nickname
+    }
+    val startForResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){
+        if (it.resultCode == Activity.RESULT_OK){
+            val dataUri = it.data?.data
 
+            Glide.with(mContext).load(dataUri).into(binding.profileImg)
+        }
     }
 
 }
