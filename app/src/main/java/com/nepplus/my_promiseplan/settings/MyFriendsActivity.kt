@@ -1,5 +1,6 @@
 package com.nepplus.my_promiseplan.settings
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -25,7 +26,8 @@ class MyFriendsActivity : BasicActivity() {
 
     override fun setupEvents() {
         addBtn.setOnClickListener {
-
+            val myIntent = Intent(mContext, AddFriendsActivity::class.java)
+            startActivity(myIntent)
         }
 
     }

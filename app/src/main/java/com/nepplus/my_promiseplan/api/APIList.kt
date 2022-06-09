@@ -7,6 +7,10 @@ import retrofit2.http.*
 
 interface APIList {
 
+//    search
+    @GET("/search/user")
+    fun getRequestSearchUser(@Query("nickname") nickname: String) : Call<BasicResponse>
+
     //    user
     @GET("/user")
     fun getRequestMyInfo (): Call<BasicResponse>

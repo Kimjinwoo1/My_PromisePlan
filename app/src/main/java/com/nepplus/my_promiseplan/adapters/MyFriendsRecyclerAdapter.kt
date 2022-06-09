@@ -2,11 +2,13 @@ package com.nepplus.my_promiseplan.adapters
 
 import android.content.Context
 import android.service.autofill.UserData
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.nepplus.my_promiseplan.R
 import com.nepplus.my_promiseplan.databinding.ListItemUserBinding
 
@@ -19,6 +21,11 @@ class MyFriendsRecyclerAdapter(
 
     inner class ItemViewHolder(view : View) : RecyclerView.ViewHolder(view){
         fun bind (item : UserData){
+            Glide.with(mContext).load(item.profileImg).into(binding.profileImg)
+            binding.nicknameTxt.text = item.nickname
+            binding.addFriendBtn.setOnClickListener {
+                Log.d("선택한목록",item.nickname)
+            }
 
         }
     }
