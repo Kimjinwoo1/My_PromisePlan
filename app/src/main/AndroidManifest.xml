@@ -3,8 +3,7 @@
     package="com.nepplus.my_promiseplan">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -13,6 +12,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.My_PromisePlan">
+        <activity
+            android:name=".settings.MyFriendsActivity"
+            android:exported="false" />
         <activity
             android:name=".dialogs.CustomAlertDialog"
             android:exported="false" />

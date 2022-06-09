@@ -73,67 +73,126 @@ class SettingsFragment : BaseFragment() {
                 .setPermissions(Manifest.permission.READ_EXTERNAL_STORAGE)
                 .setDeniedMessage("[설정] > [권한]에서 갤러리 권한을 열어주세요.")
                 .check()
-
         }
-//          닉네임 변경 이벤트
-        binding.changeNickLayout.setOnClickListener {
-            val alert = CustomAlertDialog(mContext,requireActivity())
-            alert.myDialog()
-
-            alert.binding.titleTxt.text = "닉네임 변경"
-            alert.binding.bodytxt.visibility = View.GONE
-            alert.binding.contentEdt.hint = "변경할 닉네임을 입력해주세요."
-            alert.binding.contentEdt.inputType = InputType.TYPE_CLASS_TEXT
-
-            alert.binding.positiveBtn.setOnClickListener {
-                apiList.patchRequestEditUserInfo(
-                    "nickname",
-                    alert.binding.contentEdt.text.toString()
-                ).enqueue(object : Callback<BasicResponse>{
-                    override fun onResponse(
-                        call: Call<BasicResponse>,
-                        response: Response<BasicResponse>
-                    ) {
-                        if (response.isSuccessful){
-                            val br = response.body()!!
-
-                            GlobalData.loginUser = br.data.user
-
-                            setUserData()
-
-                            alert.dialog.dismiss()
-                        }
-                        else{
-                            val errorBodyStr = response.errorBody()!!.string()
-                            val jsonObj = JSONObject(errorBodyStr)
-                            val message = jsonObj.getString("message")
-
-                            Toast.makeText(mContext, message, Toast.LENGTH_SHORT).show()
-                        }
-                    }
-
-                    override fun onFailure(call: Call<BasicResponse>, t: Throwable) {
-
-                    }
-                })
-            }
-            alert.binding.negativeBtn.setOnClickListener {
-                alert.dialog.dismiss()
-            }
+////          닉네임 변경 이벤트
+//        binding.changeNickLayout.setOnClickListener {
+//            val alert = CustomAlertDialog(mContext,requireActivity())
+//            alert.myDialog()
+//
+//            alert.binding.titleTxt.text = "닉네임 변경"
+//            alert.binding.bodytxt.visibility = View.GONE
+//            alert.binding.contentEdt.hint = "변경할 닉네임을 입력해주세요."
+//            alert.binding.contentEdt.inputType = InputType.TYPE_CLASS_TEXT
+//
+//            alert.binding.positiveBtn.setOnClickListener {
+//                apiList.patchRequestEditUserInfo(
+//                    "nickname",
+//                    alert.binding.contentEdt.text.toString()
+//                ).enqueue(object : Callback<BasicResponse>{
+//                    override fun onResponse(
+//                        call: Call<BasicResponse>,
+//                        response: Response<BasicResponse>
+//                    ) {
+//                        if (response.isSuccessful){
+//                            val br = response.body()!!
+//
+//                            GlobalData.loginUser = br.data.user
+//
+//                            setUserData()
+//
+//                            alert.dialog.dismiss()
+//                        }
+//                        else{
+//                            val errorBodyStr = response.errorBody()!!.string()
+//                            val jsonObj = JSONObject(errorBodyStr)
+//                            val message = jsonObj.getString("message")
+//
+//                            Toast.makeText(mContext, message, Toast.LENGTH_SHORT).show()
+//                        }
+//                    }
+//
+//                    override fun onFailure(call: Call<BasicResponse>, t: Throwable) {
+//
+//                    }
+//                })
+//            }
+//            alert.binding.negativeBtn.setOnClickListener {
+//                alert.dialog.dismiss()
+//            }
         }
 
+    val ocl =object: View.OnClickListener{
+            override fun onClick(p0: View?) {
+                val type = p0!!.tag.toString()
+
+                val alert = CustomAlertDialog(mContext,requireActivity())
+                alert.myDialog()
+
+                when(type){
+                    "nickname" ->{
+                        alert.binding.titleTxt.text = "닉네임 변경"
+                        alert.binding.contentEdt.hint = "변경할 닉네임 입력"
+                        alert.binding.contentEdt.inputType = InputType.TYPE_CLASS_TEXT
+                    }
+                }
+                alert.binding.bodytxt.visibility = View.GONE
+
+                alert.binding.positiveBtn.setOnClickListener {
+                    apiList.patchRequestEditUserInfo(
+                        type,
+                        alert.binding.contentEdt.text.toString()
+                    ).enqueue(object : Callback<BasicResponse>{
+                        override fun onResponse(
+                            call: Call<BasicResponse>,
+                            response: Response<BasicResponse>
+                        ) {
+                            if (response.isSuccessful){
+                                val br = response.body()!!
+
+                                GlobalData.loginUser = br.data.user
+
+                                setUserData()
+
+                                alert.dialog.dismiss()
+                            }
+
+                            else{
+                                val errorBodyStr = response.errorBody()!!.string()
+                                val jsonObj = JSONObject(errorBodyStr)
+                                val message = jsonObj.getString("message")
+
+                                Toast.makeText(mContext, message, Toast.LENGTH_SHORT).show()
+                            }
+                        }
+
+                        override fun onFailure(call: Call<BasicResponse>, t: Throwable) {
+
+                        }
+                    })
+                }
+                alert.binding.negativeBtn.setOnClickListener {
+                    alert.dialog.dismiss()
+                }
+            }
+        }
+        binding.changeNickLayout.setOnClickListener(ocl)
+        binding.readyTimeLayout.setOnClickListener(ocl)
+
+
+
+//          비밀번호 변경이벤트
         binding.changePwLayout.setOnClickListener {
 
         }
-
+//          개인 약속 이벤트
         binding.myWorkLayout.setOnClickListener {
 
         }
-
+//          친구 목록 관리 이벤트
         binding.myFriendsLayout.setOnClickListener {
 
         }
-
+//          로그아웃
         binding.logoutLayout.setOnClickListener {
             val alert = CustomAlertDialog(mContext,requireActivity())
             alert.myDialog()
