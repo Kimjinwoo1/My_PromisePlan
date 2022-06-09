@@ -2,6 +2,7 @@ package com.nepplus.my_promiseplan.settings
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import androidx.databinding.DataBindingUtil
 import com.google.android.material.tabs.TabLayoutMediator
 import com.nepplus.my_promiseplan.BasicActivity
@@ -23,10 +24,16 @@ class MyFriendsActivity : BasicActivity() {
     }
 
     override fun setupEvents() {
+        addBtn.setOnClickListener {
+
+        }
 
     }
 
     override fun setValues() {
+        titleTxt.text = "친구목록 관리"
+        addBtn.visibility = View.GONE
+
         mFriendsPagerAdapter = FriendViewPagerAdapter(this)
         binding.friendListViewPager.adapter = mFriendsPagerAdapter
 
