@@ -13,6 +13,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.My_PromisePlan">
         <activity
+            android:name=".settings.AddFriendsActivity"
+            android:exported="false" />
+        <activity
             android:name=".settings.MyFriendsActivity"
             android:exported="false" />
         <activity
