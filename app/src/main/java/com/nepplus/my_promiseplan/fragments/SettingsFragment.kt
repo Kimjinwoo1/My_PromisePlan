@@ -19,6 +19,7 @@ import com.nepplus.my_promiseplan.databinding.FragmentSettingBinding
 import com.nepplus.my_promiseplan.dialogs.CustomAlertDialog
 import com.nepplus.my_promiseplan.main.LoginActivity
 import com.nepplus.my_promiseplan.modles.BasicResponse
+import com.nepplus.my_promiseplan.settings.MyFriendsActivity
 import com.nepplus.my_promiseplan.utils.ContextUtil
 import com.nepplus.my_promiseplan.utils.GlobalData
 import com.nepplus.my_promiseplan.utils.URIPathHelper
@@ -190,7 +191,8 @@ class SettingsFragment : BaseFragment() {
         }
 //          친구 목록 관리 이벤트
         binding.myFriendsLayout.setOnClickListener {
-
+        val myIntent = Intent(mContext, MyFriendsActivity::class.java)
+        startActivity(myIntent)
         }
 //          로그아웃
         binding.logoutLayout.setOnClickListener {
