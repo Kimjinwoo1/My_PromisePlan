@@ -6,6 +6,7 @@ import android.os.Handler
 import android.os.Looper
 import android.util.Log
 import android.widget.Toast
+import com.kakao.sdk.common.util.Utility
 import com.nepplus.my_promiseplan.main.LoginActivity
 import com.nepplus.my_promiseplan.main.MainActivity
 import com.nepplus.my_promiseplan.modles.BasicResponse
@@ -27,6 +28,7 @@ class SplashActivity : BasicActivity() {
     }
 
     override fun setupEvents() {
+        getKeyHash()
         apiList.getRequestMyInfo().enqueue(object : Callback<BasicResponse>{
             override fun onResponse(call: Call<BasicResponse>, response: Response<BasicResponse>) {
                 if (response.isSuccessful){
@@ -65,5 +67,9 @@ class SplashActivity : BasicActivity() {
             finish()
 
         },2500)
+    }
+    fun getKeyHash(){
+        var keyHash = Utility.getKeyHash(this)
+        Log.d("키헤시",keyHash)
     }
 }
