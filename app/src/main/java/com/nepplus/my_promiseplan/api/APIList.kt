@@ -45,7 +45,7 @@ interface APIList {
 
     @Multipart
     @PUT("/user/image")
-    fun RequestUserImage(@Part profileImg : MultipartBody.Part) : Call<BasicResponse>
+    fun putRequestUserImage(@Part profileImg : MultipartBody.Part) : Call<BasicResponse>
 
 //  친구목록 불러오기 API
     @GET("/user/friend")

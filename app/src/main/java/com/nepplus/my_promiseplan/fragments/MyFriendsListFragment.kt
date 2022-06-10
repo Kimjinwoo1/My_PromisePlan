@@ -21,6 +21,7 @@ class MyFriendsListFragment : BaseFragment() {
     lateinit var binding : FragmentMyFriendsListBinding
 
     lateinit var mFriendAdapter : MyFriendsRecyclerAdapter
+
     var mFriendList = ArrayList<UserData>()
 
     override fun onCreateView(
@@ -39,7 +40,7 @@ class MyFriendsListFragment : BaseFragment() {
     }
     override fun onResume() {
         super.onResume()
-
+        getMyFriendsListFromSever()
     }
     override fun setEvents() {
 
