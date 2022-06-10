@@ -6,13 +6,16 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
+        android:name=".MyPromisePlan"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:name=".MyPromisePlan"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.My_PromisePlan">
+        <activity
+            android:name=".ui.EditAppointmentActivity"
+            android:exported="false" />
         <activity
             android:name=".settings.AddFriendsActivity"
             android:exported="false" />
@@ -36,8 +39,7 @@
         </activity>
         <activity
             android:name=".main.MainActivity"
-            android:exported="false" >
-        </activity>
+            android:exported="false"></activity>
         <activity
             android:name="com.kakao.sdk.auth.AuthCodeHandlerActivity"
             android:exported="true">
@@ -53,7 +55,6 @@
                     android:scheme="kakao94464b925fe5735e13b18e1c8a8512a8" />
             </intent-filter>
         </activity>
-
     </application>
 
 </manifest>

@@ -1,5 +1,6 @@
 package com.nepplus.my_promiseplan.fragments
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -7,6 +8,7 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import com.nepplus.my_promiseplan.R
 import com.nepplus.my_promiseplan.databinding.FragmentInvitedAppointmentsBinding
+import com.nepplus.my_promiseplan.ui.EditAppointmentActivity
 
 class InvitedAppointmentsFragment : BaseFragment() {
 
@@ -28,7 +30,10 @@ class InvitedAppointmentsFragment : BaseFragment() {
     }
 
     override fun setEvents() {
-
+        binding.addAppointmentBtn.setOnClickListener {
+            val myIntet = Intent(mContext,EditAppointmentActivity::class.java)
+            startActivity(myIntet)
+        }
     }
 
     override fun setValues() {
