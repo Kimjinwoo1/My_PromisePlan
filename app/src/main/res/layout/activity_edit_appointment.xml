@@ -40,6 +40,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center"
+                android:background="@drawable/lightgray_retacgle_r6"
                 android:padding="15dp"
                 android:textSize="16sp"
                 android:text="일자 선택"/>
@@ -50,6 +51,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center"
+                android:background="@drawable/lightgray_retacgle_r6"
                 android:padding="15dp"
                 android:textSize="16sp"
                 android:text="시간 선택"/>
