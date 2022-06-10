@@ -124,4 +124,42 @@ class LoginActivity : BasicActivity() {
             UserApiClient.instance.loginWithKakaoAccount(mContext, callback = callback)
         }
     }
+    fun getkakaoUserInfo(){
+        // 사용자 정보 요청 (기본)
+        UserApiClient.instance.me { user, error ->
+            if (error != null) {
+                Log.e(TAG, "사용자 정보 요청 실패", error)
+            }
+            else if (user != null) {
+                Log.i(TAG, "사용자 정보 요청 성공" +
+                        "\n회원번호: ${user.id}" +
+                        "\n닉네임: ${user.kakaoAccount?.profile?.nickname}")
+
+
+            }
+        }
+    }
+    fun socialLogin(provider : String, uid : String,nickname : String){
+        apiList.postRequestSocialLogin(provider , uid, nickname).enqueue(object : Callback<BasicResponse>{
+            override fun onResponse(call: Call<BasicResponse>, response: Response<BasicResponse>) {
+                if (response.isSuccessful){
+                    val br = response.body()!!
+
+                    ContextUtil.setLoginToken(mContext, br.data.token)
+                    ContextUtil.setAutoLogin(mContext, binding.autoLoginCb.isChecked)
+                    GlobalData.loginUser = br.data.user
+
+                    Toast.makeText(mContext, "${GlobalData.loginUser!!.nickname}님 환영합니다", Toast.LENGTH_SHORT).show()
+
+                    val myIntent = Intent(mContext, MainActivity::class.java)
+                    startActivity(myIntent)
+                    finish()
+                }
+            }
+
+            override fun onFailure(call: Call<BasicResponse>, t: Throwable) {
+
+            }
+        })
+    }
 }
