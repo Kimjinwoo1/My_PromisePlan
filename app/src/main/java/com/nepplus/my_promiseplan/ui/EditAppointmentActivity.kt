@@ -87,6 +87,19 @@ class EditAppointmentActivity : BasicActivity() {
                 Toast.makeText(mContext, "약속 장소명을 정해주세요", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
+            if (binding.dataTxt.text == "일자 선택"){
+                Toast.makeText(mContext, "약속 일자를 선택하지 않았습니다.", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+            if (binding.timeTxt.text == "시간 선택"){
+                Toast.makeText(mContext, "약속 시간을 선택하지 않았습니다.", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+//            지금시간과 선택된(mSelectedDataTime)과의 시간차를 계산
+            if (mSelectedDateTime.timeInMillis < Calendar.getInstance().timeInMillis){
+                Toast.makeText(mContext, "현재 시간이후의 시간으로 선택해주세요", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
 
         }
 
