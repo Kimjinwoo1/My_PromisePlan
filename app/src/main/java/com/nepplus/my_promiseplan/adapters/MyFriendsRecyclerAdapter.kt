@@ -44,15 +44,6 @@ class MyFriendsRecyclerAdapter(
             Glide.with(mContext).load(item.profileImg).into(profileImg)
             nicknameTxt.text = item.nickname
 
-            when(item.provider){
-                "kakao"->{
-                    socialLoginImg.setImageResource(R.drawable.kakao_login_icon)
-                }
-                "facebook"->{
-                    socialLoginImg.setImageResource(R.drawable.facebook_login_icon)
-                }
-                else ->{socialLoginImg.visibility = View.GONE}
-            }
 
             when (type){
                 "add" -> {
@@ -68,6 +59,17 @@ class MyFriendsRecyclerAdapter(
                     requestLayoutBtn.visibility = View.GONE
                 }
             }
+
+            when(item.provider){
+                "kakao"->{
+                    socialLoginImg.setImageResource(R.drawable.kakao_login_icon)
+                }
+                "facebook"->{
+                    socialLoginImg.setImageResource(R.drawable.facebook_login_icon)
+                }
+                else ->{socialLoginImg.visibility = View.GONE}
+            }
+
             val ocl = object : View.OnClickListener{
                 override fun onClick(p0: View?) {
                     val okOrNo = p0!!.tag.toString()
