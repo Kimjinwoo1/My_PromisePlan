@@ -27,7 +27,7 @@ class SplashActivity : BasicActivity() {
     }
 
     override fun setupEvents() {
-        apiList.getRequestMyInfo(ContextUtil.getLoginToken(mContext)).enqueue(object : Callback<BasicResponse>{
+        apiList.getRequestMyInfo().enqueue(object : Callback<BasicResponse>{
             override fun onResponse(call: Call<BasicResponse>, response: Response<BasicResponse>) {
                 if (response.isSuccessful){
                     val br = response.body()!!
@@ -55,7 +55,7 @@ class SplashActivity : BasicActivity() {
             Log.d("CB",ContextUtil.getAutoLogin(mContext).toString())
 
             if (isTokenOk && ContextUtil.getAutoLogin(mContext)){
-                Toast.makeText(mContext, "${GlobalData.loginUser!!.nick_name}님 환영합니다.", Toast.LENGTH_SHORT).show()
+                Toast.makeText(mContext, "${GlobalData.loginUser!!.nickname}님 환영합니다.", Toast.LENGTH_SHORT).show()
                 myIntent = Intent(mContext,MainActivity::class.java)
             }
             else{

@@ -22,15 +22,12 @@ interface APIList {
         @Field("value") value: String,
     ) : Call<BasicResponse>
 
-
-
     @FormUrlEncoded
     @POST("/user")
     fun postRequestLogin(
         @Field("email")email : String,
         @Field("password")password : String,
     ) : Call<BasicResponse>
-
 
     @FormUrlEncoded
     @PUT("/user")
@@ -48,7 +45,19 @@ interface APIList {
 
     @Multipart
     @PUT("/user/image")
-    fun putRequestUserImage(@Part profileImg : MultipartBody.Part) : Call<BasicResponse>
+    fun RequestUserImage(@Part profileImg : MultipartBody.Part) : Call<BasicResponse>
+
+//  친구추가보내는 APi
+    @FormUrlEncoded
+    @POST("/user/friend")
+    fun postRequestAddFriend(@Field("user_id")userId : Int) : Call<BasicResponse>
+
+    @FormUrlEncoded
+    @PUT("/user/friend")
+    fun putRequestAnswerRequest(
+        @Field("user_id") userId : Int,
+        @Field("type") type : String,
+    ): Call<BasicResponse>
 
 
 

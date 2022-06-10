@@ -2,9 +2,9 @@
 <layout xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:orientation="vertical"
+        android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:padding="10dp"
         android:gravity="center_vertical">
 
@@ -27,11 +27,35 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"/>
+        
+        <LinearLayout
+            android:id="@+id/requestLayoutBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/acceptBtn"
+                android:tag="수락"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="수락"/>
+
+            <Button
+                android:id="@+id/denyBtn"
+                android:tag="거절"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:text="거절"/>
+
+        </LinearLayout>
 
         <Button
             android:id="@+id/addFriendBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:visibility="gone"
             android:text="친구 요청"/>
 
     </LinearLayout>

@@ -120,7 +120,7 @@ class SettingsFragment : BaseFragment() {
 //            alert.binding.negativeBtn.setOnClickListener {
 //                alert.dialog.dismiss()
 //            }
-        }
+//        }
 
     val ocl =object: View.OnClickListener{
             override fun onClick(p0: View?) {
@@ -177,7 +177,6 @@ class SettingsFragment : BaseFragment() {
             }
         }
         binding.changeNickLayout.setOnClickListener(ocl)
-        binding.readyTimeLayout.setOnClickListener(ocl)
 
 
 
@@ -236,7 +235,8 @@ class SettingsFragment : BaseFragment() {
 
     fun setUserData(){
         Glide.with(mContext)
-            .load(GlobalData.loginUser!!.profileimg)
+            .load(GlobalData.loginUser!!.profileImg)
+
             .into(binding.profileImg)
         binding.nickNameTxt.text = GlobalData.loginUser!!.nickname
     }
@@ -259,7 +259,7 @@ class SettingsFragment : BaseFragment() {
                     if (response.isSuccessful){
                         GlobalData.loginUser = response.body()!!.data.user
 
-                        Glide.with(mContext).load(GlobalData.loginUser!!.profileimg).into(binding.profileImg)
+                        Glide.with(mContext).load(GlobalData.loginUser!!.profileImg).into(binding.profileImg)
 
                         Toast.makeText(mContext, "프로필 사진이 변경되었습니다.", Toast.LENGTH_SHORT).show()
                     }

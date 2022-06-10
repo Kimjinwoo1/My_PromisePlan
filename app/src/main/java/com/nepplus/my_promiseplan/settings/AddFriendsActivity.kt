@@ -48,8 +48,6 @@ class AddFriendsActivity : BasicActivity() {
                 ) {
                     if (response.isSuccessful){
                         val br = response.body()!!
-//                        어댑터의 아이템들을 모두 삭제한 뒤
-                        mFriendAdapter.notifyItemRemoved(0, mFriendList.size)
 
 //                        리스트 삭제
                         mFriendList.clear()
@@ -57,7 +55,8 @@ class AddFriendsActivity : BasicActivity() {
                         mFriendList.addAll(br.data.users)
 
 //                        어댑터에 리스트가 바뀌었다는 통보
-                        mFriendAdapter.notifyItemRangeInserted(0,mFriendList.size)
+//                        RecyclerView의 모든 뷰를 삭제하고 다시 뷰를 생성 비효율적인 코드
+                        mFriendAdapter.notifyDataSetChanged()
                     }
                 }
 
@@ -71,7 +70,7 @@ class AddFriendsActivity : BasicActivity() {
 
     override fun setValues() {
 //          어댑터 초기화(init) => 빈껍데기로
-        mFriendAdapter = MyFriendsRecyclerAdapter(mContext,mFriendList)
+        mFriendAdapter = MyFriendsRecyclerAdapter(mContext,mFriendList,"add")
         binding.findUserRecyclerView.adapter = mFriendAdapter
         binding.findUserRecyclerView.layoutManager = LinearLayoutManager(mContext)
 
