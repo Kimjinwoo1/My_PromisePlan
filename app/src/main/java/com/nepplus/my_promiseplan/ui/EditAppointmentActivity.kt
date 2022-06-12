@@ -4,9 +4,12 @@ import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.DatePicker
+import android.widget.TextView
 import android.widget.TimePicker
 import android.widget.Toast
+import androidx.core.view.setPadding
 import androidx.databinding.DataBindingUtil
 import com.nepplus.my_promiseplan.BasicActivity
 import com.nepplus.my_promiseplan.R
@@ -14,6 +17,7 @@ import com.nepplus.my_promiseplan.adapters.MyFriendSpinnerAdapter
 import com.nepplus.my_promiseplan.databinding.ActivityEditAppointmentBinding
 import com.nepplus.my_promiseplan.modles.BasicResponse
 import com.nepplus.my_promiseplan.modles.UserData
+import com.nepplus.my_promiseplan.utils.SIzeUtil
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -30,6 +34,7 @@ class EditAppointmentActivity : BasicActivity() {
 //    친구 목록을 담고있는 Spinner 과련 변수
     var mFriendsList = ArrayList<UserData>()
     lateinit var mFriendsSpinnerAdapter : MyFriendSpinnerAdapter
+    var mSelectedFriendsList = ArrayList<UserData>()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -63,6 +68,28 @@ class EditAppointmentActivity : BasicActivity() {
             )
             dpd.show()
         }
+//      친구초대 버튼 클릭 이벤트 처리
+        binding.invitedFriendBtn.setOnClickListener {
+//      지금 선택된 친구가 누구인지 확인 => 스피너의 선택되어있는 아이템의 포지션 확인
+            val selectedFriend = mFriendsList[binding.invitedFriendSpinner.selectedItemPosition]
+//            지금 선택된 친구가 이미 선택이 되었는지 확인
+            if (mSelectedFriendsList.contains(selectedFriend)){
+                Toast.makeText(mContext, "이미 추가한 친구입니다.", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+//            텍스트뷰 하나를 코틀린에서 생성
+            val textView = TextView(mContext)
+
+//            텍스트뷰에 패딩을 설정
+            textView.setPadding(SIzeUtil.dpToPx(mContext, 5f).toInt())
+
+            textView.text = selectedFriend.nickname
+
+            //            만들어낸 텍스트뷰에 이벤트 처리
+        }
+
+
+//        약속 추가 이벤트
         binding.addBtn.setOnClickListener {
             val inputTitle = binding.titleEdt.toString()
 //            약속제목 정하기
