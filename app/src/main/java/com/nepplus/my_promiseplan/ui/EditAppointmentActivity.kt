@@ -117,6 +117,9 @@ class EditAppointmentActivity : BasicActivity() {
 
             val sdf = SimpleDateFormat("yyyy-MM-dd HH:mm")
 
+            //            서버에 내 시간정보(Date)를 올릴때도, UTC로 변환하여 통신
+            sdf.timeZone = TimeZone.getTimeZone("UTC")
+
             apiList.postRequestAddAppointment(
                 inputTitle,
                 sdf.format(mSelectedDateTime.time),

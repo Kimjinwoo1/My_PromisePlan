@@ -8,10 +8,10 @@ import com.nepplus.my_promiseplan.databinding.ListItemAppointmentBinding
 import com.nepplus.my_promiseplan.modles.AppointmentData
 import java.text.SimpleDateFormat
 
-class MyAppointmentRecyclerView (
+class MyAppointmentRecyclerViewAdapter (
     val mContext : Context,
     val mList : List<AppointmentData>,
-) : RecyclerView.Adapter<MyAppointmentRecyclerView.ItemViewHolder>() {
+) : RecyclerView.Adapter<MyAppointmentRecyclerViewAdapter.ItemViewHolder>() {
 
     inner class ItemViewHolder (val binding : ListItemAppointmentBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(item : AppointmentData) {

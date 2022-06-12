@@ -8,6 +8,10 @@ import retrofit2.http.*
 interface APIList {
 
 //    appointment
+    @GET("/appointment")
+    fun getRequestMyAppointment() : Call<BasicResponse>
+
+
     @FormUrlEncoded
     @POST("/appointment")
     fun postRequestAddAppointment(
