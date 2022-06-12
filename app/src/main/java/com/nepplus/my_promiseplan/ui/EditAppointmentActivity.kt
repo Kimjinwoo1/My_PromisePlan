@@ -2,7 +2,6 @@ package com.nepplus.my_promiseplan.ui
 
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.DatePicker
@@ -11,7 +10,13 @@ import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import com.nepplus.my_promiseplan.BasicActivity
 import com.nepplus.my_promiseplan.R
+import com.nepplus.my_promiseplan.adapters.MyFriendSpinnerAdapter
 import com.nepplus.my_promiseplan.databinding.ActivityEditAppointmentBinding
+import com.nepplus.my_promiseplan.modles.BasicResponse
+import com.nepplus.my_promiseplan.modles.UserData
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -21,6 +26,11 @@ class EditAppointmentActivity : BasicActivity() {
 
 //      선택할 약속 일시를 저장할 맴버변수
     val mSelectedDateTime = Calendar.getInstance()
+
+//    친구 목록을 담고있는 Spinner 과련 변수
+    var mFriendsList = ArrayList<UserData>()
+    lateinit var mFriendsSpinnerAdapter : MyFriendSpinnerAdapter
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,7 +42,7 @@ class EditAppointmentActivity : BasicActivity() {
     override fun setupEvents() {
 
 //        날짜 선택
-        binding.dataTxt.setOnClickListener {
+        binding.dateTxt.setOnClickListener {
 //            날짜를 선택하고 할 일(인터페이스)를 작성
             val dl = object : DatePickerDialog.OnDateSetListener{
                 override fun onDateSet(p0: DatePicker?, year: Int, month: Int, day: Int) {
@@ -41,7 +51,7 @@ class EditAppointmentActivity : BasicActivity() {
                     val sdf = SimpleDateFormat("yyyy. M. d (E)")
                     Log.d("선택된 시간",sdf.format(mSelectedDateTime.time))
 
-                    binding.dataTxt.text = sdf.format(mSelectedDateTime.time)
+                    binding.dateTxt.text = sdf.format(mSelectedDateTime.time)
                 }
             }
 //            DataPickerdialog 팝업
@@ -87,7 +97,7 @@ class EditAppointmentActivity : BasicActivity() {
                 Toast.makeText(mContext, "약속 장소명을 정해주세요", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
-            if (binding.dataTxt.text == "일자 선택"){
+            if (binding.dateTxt.text == "일자 선택"){
                 Toast.makeText(mContext, "약속 일자를 선택하지 않았습니다.", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
@@ -108,5 +118,24 @@ class EditAppointmentActivity : BasicActivity() {
     override fun setValues() {
         titleTxt.text = "새 약속 만들기"
 
+        mFriendsSpinnerAdapter = MyFriendSpinnerAdapter(mContext,R.layout.list_item_user,mFriendsList)
+        binding.invitedFriendSpinner.adapter = mFriendsSpinnerAdapter
+
+    }
+    fun getMyFriendsListServer(){
+        apiList.getRequestMyFriendList("my").enqueue(object : Callback<BasicResponse>{
+            override fun onResponse(call: Call<BasicResponse>, response: Response<BasicResponse>) {
+                if (response.isSuccessful){
+                    mFriendsList.clear()
+                    mFriendsList.addAll(response.body()!!.data.friends)
+
+                    mFriendsSpinnerAdapter.notifyDataSetChanged()
+                }
+            }
+
+            override fun onFailure(call: Call<BasicResponse>, t: Throwable) {
+
+            }
+        })
     }
 }
