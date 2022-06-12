@@ -7,6 +7,18 @@ import retrofit2.http.*
 
 interface APIList {
 
+//    appointment
+    @FormUrlEncoded
+    @POST("/appointment")
+    fun postRequestAddAppointment(
+    @Field("title") title : String,
+    @Field("datetime") datetime : String,
+    @Field("start_place") startplace : String,
+    @Field("place") place : String,
+    @Field("friend_list") friendlist : String,
+
+    )
+
 //    search
     @GET("/search/user")
     fun getRequestSearchUser(@Query("nickname") nickname: String) : Call<BasicResponse>

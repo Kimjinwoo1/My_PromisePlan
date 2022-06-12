@@ -66,15 +66,15 @@ class EditAppointmentActivity : BasicActivity() {
         binding.addBtn.setOnClickListener {
             val inputTitle = binding.titleEdt.toString()
 //            약속제목 정하기
-            if (inputTitle.isBlank()){
+            if (inputTitle.isBlank()) {
                 Toast.makeText(mContext, "약속을 정해주세요.", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
 //            시간 선택
             binding.timeTxt.setOnClickListener {
-                val tsl = object : TimePickerDialog.OnTimeSetListener{
+                val tsl = object : TimePickerDialog.OnTimeSetListener {
                     override fun onTimeSet(p0: TimePicker?, hour: Int, minute: Int) {
-                        mSelectedDateTime.set(Calendar.HOUR_OF_DAY,hour)
+                        mSelectedDateTime.set(Calendar.HOUR_OF_DAY, hour)
                         mSelectedDateTime.set(Calendar.MINUTE, minute)
 
                         val sdf = SimpleDateFormat("a h:mm")
@@ -83,7 +83,7 @@ class EditAppointmentActivity : BasicActivity() {
                 }
 
                 TimePickerDialog(
-                    mContext,tsl,
+                    mContext, tsl,
                     mSelectedDateTime.get(Calendar.HOUR_OF_DAY),
                     mSelectedDateTime.get(Calendar.MINUTE),
                     false
@@ -93,26 +93,51 @@ class EditAppointmentActivity : BasicActivity() {
 
 //            약속명 정하기
             val inputPlaceName = binding.placeNameTxt.text.toString()
-            if (inputPlaceName.isBlank()){
+            if (inputPlaceName.isBlank()) {
                 Toast.makeText(mContext, "약속 장소명을 정해주세요", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
-            if (binding.dateTxt.text == "일자 선택"){
+            if (binding.dateTxt.text == "일자 선택") {
                 Toast.makeText(mContext, "약속 일자를 선택하지 않았습니다.", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
-            if (binding.timeTxt.text == "시간 선택"){
+            if (binding.timeTxt.text == "시간 선택") {
                 Toast.makeText(mContext, "약속 시간을 선택하지 않았습니다.", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
 //            지금시간과 선택된(mSelectedDataTime)과의 시간차를 계산
-            if (mSelectedDateTime.timeInMillis < Calendar.getInstance().timeInMillis){
+            if (mSelectedDateTime.timeInMillis < Calendar.getInstance().timeInMillis) {
                 Toast.makeText(mContext, "현재 시간이후의 시간으로 선택해주세요", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
 
-        }
+            var friendListStr = ""
 
+//            서버에서 요구한 약속일시 양식대로 변환하여 전달
+
+            val sdf = SimpleDateFormat("yyyy-MM-dd HH:mm")
+
+            apiList.postRequestAddAppointment(
+                inputTitle,
+                sdf.format(mSelectedDateTime.time),
+                inputPlaceName,
+                friendListStr
+            ).enqueue(object : Callback<BasicResponse> {
+                override fun onResponse(
+                    call: Call<BasicResponse>,
+                    response: Response<BasicResponse>
+                ) {
+                    if (response.isSuccessful) {
+                        Toast.makeText(mContext, "약속이 등록되었습니다.", Toast.LENGTH_SHORT).show()
+                        Log.d("현재 올린 약속 정보", response.body()!!.data.appointment.toString())
+                    }
+                }
+
+                override fun onFailure(call: Call<BasicResponse>, t: Throwable) {
+
+                }
+            })
+        }
     }
 
     override fun setValues() {
