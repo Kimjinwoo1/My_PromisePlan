@@ -1,11 +1,12 @@
 package com.nepplus.my_promiseplan.modles
 
 import com.google.gson.annotations.SerializedName
+import java.util.*
 
 class AppointmentData (
     val id : Int,
     val title : String,
-    val datetime : String,
+    val datetime : Date,
     @SerializedName("start_place")
     val startPlace : String,
     val place : String,
