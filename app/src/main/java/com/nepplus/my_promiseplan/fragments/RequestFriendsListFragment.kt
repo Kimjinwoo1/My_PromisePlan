@@ -34,7 +34,7 @@ class RequestFriendsListFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setEvents()
+        setupEvents()
         setValues()
 
     }
@@ -44,7 +44,7 @@ class RequestFriendsListFragment : BaseFragment() {
         getRequestedFriednsListFromServer()
     }
 
-    override fun setEvents() {
+    override fun setupEvents() {
 
     }
 

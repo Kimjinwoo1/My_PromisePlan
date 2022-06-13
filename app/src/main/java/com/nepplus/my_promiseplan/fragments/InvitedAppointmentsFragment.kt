@@ -20,7 +20,7 @@ import retrofit2.Response
 
 class InvitedAppointmentsFragment : BaseFragment() {
 
-    lateinit var binding : FragmentMyAppointmentsBinding
+    lateinit var binding : FragmentInvitedAppointmentsBinding
 
     lateinit var mAppointAdapter : MyAppointmentRecyclerViewAdapter
     var mAppointmentList = ArrayList<AppointmentData>()
@@ -30,7 +30,7 @@ class InvitedAppointmentsFragment : BaseFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_my_appointments, container, false)
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_invited_appointments, container, false)
         return binding.root
     }
 
@@ -53,9 +53,9 @@ class InvitedAppointmentsFragment : BaseFragment() {
     }
 
     override fun setValues() {
-        mAppointAdapter = MyAppointmentRecyclerViewAdapter(mContext, mAppointmentList)
-        binding.myAppointmentRecyclerView.adapter = mAppointAdapter
-        binding.myAppointmentRecyclerView.layoutmenger = LinearLayoutManager(mContext)
+        mAppointAdapter = MyAppointmentRecyclerViewAdapter(mContext, mAppointmentList,false)
+        binding.invitedAppointmentRecyclerView.adapter = mAppointAdapter
+        binding.invitedAppointmentRecyclerView.layoutManager = LinearLayoutManager(mContext)
     }
 
     fun getMyAppointmentListFromServer() {

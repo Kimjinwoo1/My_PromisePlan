@@ -1,7 +1,6 @@
 package com.nepplus.my_promiseplan.fragments
 
 import android.os.Bundle
-import android.renderscript.ScriptGroup
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -35,14 +34,14 @@ class MyFriendsListFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setEvents()
+        setupEvents()
         setValues()
     }
     override fun onResume() {
         super.onResume()
         getMyFriendsListFromSever()
     }
-    override fun setEvents() {
+    override fun setupEvents() {
 
     }
 

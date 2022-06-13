@@ -22,6 +22,6 @@ abstract class BaseFragment : Fragment() {
         apiList = retrofit.create(APIList::class.java)
     }
 
-    abstract fun setEvents()
+    abstract fun setupEvents()
     abstract fun setValues()
 }

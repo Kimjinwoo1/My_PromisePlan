@@ -17,11 +17,11 @@ interface APIList {
     fun postRequestAddAppointment(
     @Field("title") title : String,
     @Field("datetime") datetime : String,
-    @Field("start_place") startplace : String,
     @Field("place") place : String,
+    @Field("latitude") latitude: Double,
+    @Field("longitude") longitude: Double,
     @Field("friend_list") friendlist : String,
-
-    )
+    ) : Call<BasicResponse>
 
 //    search
     @GET("/search/user")

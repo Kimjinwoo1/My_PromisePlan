@@ -47,11 +47,11 @@ class SettingsFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setEvents()
+        setupEvents()
         setValues()
     }
 
-    override fun setEvents() {
+    override fun setupEvents() {
         binding.profileImg.setOnClickListener {
             val pl = object : PermissionListener{
                 override fun onPermissionGranted() {

@@ -21,14 +21,17 @@ import java.util.ArrayList
 
 class MyAppointmentsFragment : BaseFragment() {
 
-    lateinit var binding : FragmentInvitedAppointmentsBinding
+    lateinit var binding : FragmentMyAppointmentsBinding
+
+    lateinit var mAppointmentAdapter : MyAppointmentRecyclerViewAdapter
+    var mAppointmentsList = ArrayList<AppointmentData>()
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_invited_appointments, container, false)
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_my_appointments, container, false)
         return binding.root
     }
 
@@ -38,12 +41,37 @@ class MyAppointmentsFragment : BaseFragment() {
         setValues()
     }
 
+    override fun onResume() {
+        super.onResume()
+        getMyAppointmentListFromSever()
+    }
+
     override fun setupEvents() {
 
     }
 
     override fun setValues() {
+        mAppointmentAdapter = MyAppointmentRecyclerViewAdapter(mContext, mAppointmentsList,true)
+        binding.myAppointmentRecyclerView.adapter = mAppointmentAdapter
+        binding.myAppointmentRecyclerView.layoutManager = LinearLayoutManager(mContext)
+    }
 
+    fun getMyAppointmentListFromSever (){
+        apiList.getRequestMyAppointment().enqueue(object : Callback<BasicResponse>{
+            override fun onResponse(call: Call<BasicResponse>, response: Response<BasicResponse>) {
+                if (response.isSuccessful){
+                    val br = response.body()!!
+                    mAppointmentsList.clear()
+                    mAppointmentsList.addAll(br.data.invitedAppointments)
+
+                    mAppointmentAdapter.notifyDataSetChanged()
+                }
+            }
+
+            override fun onFailure(call: Call<BasicResponse>, t: Throwable) {
+
+            }
+        })
     }
 
 }

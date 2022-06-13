@@ -86,6 +86,19 @@ class EditAppointmentActivity : BasicActivity() {
             textView.text = selectedFriend.nickname
 
             //            만들어낸 텍스트뷰에 이벤트 처리
+            textView.setOnClickListener {
+                binding.friendListLayout.removeView(textView)
+                mSelectedFriendsList.remove(selectedFriend)
+
+                if (mSelectedFriendsList.size == 0){
+                    binding.friendListLayout.visibility = View.GONE
+                }
+            }
+
+            binding.friendListLayout.visibility = View.VISIBLE
+            binding.friendListLayout.addView(textView)
+            mSelectedFriendsList.add(selectedFriend)
+
         }
 
 
@@ -118,55 +131,72 @@ class EditAppointmentActivity : BasicActivity() {
 
             }
 
+            binding.addBtn.setOnClickListener {
 //            약속명 정하기
-            val inputPlaceName = binding.placeNameTxt.text.toString()
-            if (inputPlaceName.isBlank()) {
-                Toast.makeText(mContext, "약속 장소명을 정해주세요", Toast.LENGTH_SHORT).show()
-                return@setOnClickListener
-            }
-            if (binding.dateTxt.text == "일자 선택") {
-                Toast.makeText(mContext, "약속 일자를 선택하지 않았습니다.", Toast.LENGTH_SHORT).show()
-                return@setOnClickListener
-            }
-            if (binding.timeTxt.text == "시간 선택") {
-                Toast.makeText(mContext, "약속 시간을 선택하지 않았습니다.", Toast.LENGTH_SHORT).show()
-                return@setOnClickListener
-            }
+                val inputPlaceName = binding.placeNameTxt.text.toString()
+                if (inputPlaceName.isBlank()) {
+                    Toast.makeText(mContext, "약속 장소명을 정해주세요", Toast.LENGTH_SHORT).show()
+                    return@setOnClickListener
+                }
+                if (binding.dateTxt.text == "일자 선택") {
+                    Toast.makeText(mContext, "약속 일자를 선택하지 않았습니다.", Toast.LENGTH_SHORT).show()
+                    return@setOnClickListener
+                }
+                if (binding.timeTxt.text == "시간 선택") {
+                    Toast.makeText(mContext, "약속 시간을 선택하지 않았습니다.", Toast.LENGTH_SHORT).show()
+                    return@setOnClickListener
+                }
 //            지금시간과 선택된(mSelectedDataTime)과의 시간차를 계산
-            if (mSelectedDateTime.timeInMillis < Calendar.getInstance().timeInMillis) {
-                Toast.makeText(mContext, "현재 시간이후의 시간으로 선택해주세요", Toast.LENGTH_SHORT).show()
-                return@setOnClickListener
-            }
+                if (mSelectedDateTime.timeInMillis < Calendar.getInstance().timeInMillis) {
+                    Toast.makeText(mContext, "현재 시간이후의 시간으로 선택해주세요", Toast.LENGTH_SHORT).show()
+                    return@setOnClickListener
+                }
 
-            var friendListStr = ""
+                var friendListStr = ""
+
+//              friendListStr에 들어갈 String을 선택된 친구목록을 이용해 가공
+                for (friend in mSelectedFriendsList){
+                    friendListStr += friend.id
+                    friendListStr += ","
+                }
+
+//                마지막 , 만 제거 => 글자가 0보다 커야 가능
+                if (friendListStr != ""){
+                    friendListStr = friendListStr.substring(0,friendListStr.length -1)
+                }
 
 //            서버에서 요구한 약속일시 양식대로 변환하여 전달
 
-            val sdf = SimpleDateFormat("yyyy-MM-dd HH:mm")
+                val sdf = SimpleDateFormat("yyyy-MM-dd HH:mm")
 
-            //            서버에 내 시간정보(Date)를 올릴때도, UTC로 변환하여 통신
-            sdf.timeZone = TimeZone.getTimeZone("UTC")
 
-            apiList.postRequestAddAppointment(
-                inputTitle,
-                sdf.format(mSelectedDateTime.time),
-                inputPlaceName,
-                friendListStr
-            ).enqueue(object : Callback<BasicResponse> {
-                override fun onResponse(
-                    call: Call<BasicResponse>,
-                    response: Response<BasicResponse>
-                ) {
-                    if (response.isSuccessful) {
-                        Toast.makeText(mContext, "약속이 등록되었습니다.", Toast.LENGTH_SHORT).show()
-                        Log.d("현재 올린 약속 정보", response.body()!!.data.appointment.toString())
+                //            서버에 내 시간정보(Date)를 올릴때도, UTC로 변환하여 통신
+                sdf.timeZone = TimeZone.getTimeZone("UTC")
+
+                apiList.postRequestAddAppointment(
+                    inputTitle,
+                    sdf.format(mSelectedDateTime.time),
+                    inputPlaceName,
+                    0.0,
+                    0.0,
+                    friendListStr
+                ).enqueue(object : Callback<BasicResponse> {
+                    override fun onResponse(
+                        call: Call<BasicResponse>,
+                        response: Response<BasicResponse>
+                    ) {
+                        if (response.isSuccessful) {
+                            Toast.makeText(mContext, "약속이 등록되었습니다.", Toast.LENGTH_SHORT).show()
+//                            Log.d("현재 올린 약속 정보", response.body()!!.data.appointment.toString())
+                            finish()
+                        }
                     }
-                }
 
-                override fun onFailure(call: Call<BasicResponse>, t: Throwable) {
+                    override fun onFailure(call: Call<BasicResponse>, t: Throwable) {
 
-                }
-            })
+                    }
+                })
+            }
         }
     }
 
