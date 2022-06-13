@@ -187,6 +187,7 @@ class SettingsFragment : BaseFragment() {
 //          개인 약속 이벤트
         binding.myWorkLayout.setOnClickListener {
 
+
         }
 //          친구 목록 관리 이벤트
         binding.myFriendsLayout.setOnClickListener {

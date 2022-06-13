@@ -17,6 +17,7 @@ class MyFriendSpinnerAdapter(
     val mList : List<UserData>
 ) : ArrayAdapter<UserData>(mContext,resId,mList) {
 
+//      눈에 보여지는 Spinner의 모습
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
         var row = convertView
         if (row == null) {

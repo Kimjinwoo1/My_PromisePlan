@@ -1,6 +1,7 @@
 package com.nepplus.my_promiseplan.adapters
 
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,6 +19,8 @@ class MyAppointmentRecyclerViewAdapter (
 
     inner class ItemViewHolder (val binding : ListItemAppointmentBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(item : AppointmentData) {
+
+            Log.d("RecyclerViewItem", item.toString())
 
             binding.titleTxt.text = item.title
 

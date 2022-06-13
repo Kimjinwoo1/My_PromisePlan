@@ -3,7 +3,7 @@ package com.nepplus.my_promiseplan.modles
 import com.google.gson.annotations.SerializedName
 import java.util.*
 
-class AppointmentData (
+data class AppointmentData (
     val id : Int,
     val title : String,
     val datetime : Date,

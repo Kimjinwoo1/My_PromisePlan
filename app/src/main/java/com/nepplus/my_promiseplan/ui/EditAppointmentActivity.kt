@@ -104,7 +104,7 @@ class EditAppointmentActivity : BasicActivity() {
 
 //        약속 추가 이벤트
         binding.addBtn.setOnClickListener {
-            val inputTitle = binding.titleEdt.toString()
+            val inputTitle = binding.titleEdt.text.toString()
 //            약속제목 정하기
             if (inputTitle.isBlank()) {
                 Toast.makeText(mContext, "약속을 정해주세요.", Toast.LENGTH_SHORT).show()
@@ -205,6 +205,7 @@ class EditAppointmentActivity : BasicActivity() {
 
         mFriendsSpinnerAdapter = MyFriendSpinnerAdapter(mContext,R.layout.list_item_user,mFriendsList)
         binding.invitedFriendSpinner.adapter = mFriendsSpinnerAdapter
+        getMyFriendsListServer()
 
     }
     fun getMyFriendsListServer(){

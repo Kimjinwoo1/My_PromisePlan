@@ -2,6 +2,7 @@ package com.nepplus.my_promiseplan.fragments
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -53,6 +54,7 @@ class InvitedAppointmentsFragment : BaseFragment() {
     }
 
     override fun setValues() {
+        Log.d("List", mAppointmentList.toString())
         mAppointAdapter = MyAppointmentRecyclerViewAdapter(mContext, mAppointmentList,false)
         binding.invitedAppointmentRecyclerView.adapter = mAppointAdapter
         binding.invitedAppointmentRecyclerView.layoutManager = LinearLayoutManager(mContext)
