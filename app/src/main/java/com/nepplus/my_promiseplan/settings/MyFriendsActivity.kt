@@ -34,7 +34,7 @@ class MyFriendsActivity : BasicActivity() {
 
     override fun setValues() {
         titleTxt.text = "친구목록 관리"
-        addBtn.visibility = View.GONE
+        addBtn.visibility = View.VISIBLE
 
         mFriendsPagerAdapter = FriendViewPagerAdapter(this)
         binding.friendListViewPager.adapter = mFriendsPagerAdapter

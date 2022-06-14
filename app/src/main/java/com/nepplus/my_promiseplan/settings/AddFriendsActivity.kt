@@ -57,7 +57,7 @@ class AddFriendsActivity : BasicActivity() {
 
 //                        어댑터에 리스트가 바뀌었다는 통보
 //                        RecyclerView의 모든 뷰를 삭제하고 다시 뷰를 생성 비효율적인 코드
-//                        mFriendAdapter.notifyDataSetChanged()
+                        mFriendAdapter.notifyDataSetChanged()
                     }
                 }
 
