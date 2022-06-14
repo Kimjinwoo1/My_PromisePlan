@@ -37,14 +37,17 @@ class SignUpActivity : BasicActivity() {
                 Toast.makeText(mContext, "이메일 중복 체크를 확인해 주세요.", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
+//            2. 비밀번호 중복체크
             if (!isPwDupOk){
-                Toast.makeText(mContext, "비밀번호 중복 체크를 확인해 해주세요.", Toast.LENGTH_SHORT).show()
+                Toast.makeText(mContext, "비밀번호가 일치하지 않습니다.", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
+//            3. 닉네임 중복체크
             if (!isNickDupOk){
                 Toast.makeText(mContext, "닉네임 중복 체크를 확인해 주세요", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
+//            실제 회원가입
             else{
                 signUp()
             }
@@ -53,7 +56,7 @@ class SignUpActivity : BasicActivity() {
             dupCheck("EMAIL",binding.emailEdt.text.toString())
         }
         binding.nickDupBtn.setOnClickListener {
-            dupCheck("Nick_Name",binding.nickEdt.text.toString())
+            dupCheck("NICK_NAME",binding.nickEdt.text.toString())
         }
 
         binding.emailEdt.addTextChangedListener {
@@ -63,10 +66,10 @@ class SignUpActivity : BasicActivity() {
             isNickDupOk = false
         }
         binding.passwordEdt.addTextChangedListener {
-            isPwDupOk = (mContext.toString() == binding.pwDupEdt.text.toString())
+            isPwDupOk = (it.toString() == binding.pwDupEdt.text.toString())
         }
         binding.pwDupEdt.addTextChangedListener {
-            isPwDupOk = (mContext.toString() == binding.passwordEdt.text.toString())
+            isPwDupOk = (it.toString() == binding.passwordEdt.text.toString())
         }
     }
 
@@ -118,6 +121,18 @@ class SignUpActivity : BasicActivity() {
                 if (response.isSuccessful){
                     val br = response.body()!!
                     Toast.makeText(mContext, br.message, Toast.LENGTH_SHORT).show()
+
+                    when(type){
+                        "EMAIL" -> isEmailDupOk = true
+                        "NICK_NAME" -> isNickDupOk = true
+                    }
+                }
+                else{
+                    val errorBodyStr = response.errorBody()!!.string()
+                    val jsonObj = JSONObject(errorBodyStr)
+                    val message = jsonObj.getString("message")
+
+                    Toast.makeText(mContext, message, Toast.LENGTH_SHORT).show()
 
                     when(type){
                         "EMAIL" -> isEmailDupOk = false
