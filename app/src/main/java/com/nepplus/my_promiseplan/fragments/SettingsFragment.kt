@@ -19,6 +19,7 @@ import com.nepplus.my_promiseplan.databinding.FragmentSettingBinding
 import com.nepplus.my_promiseplan.dialogs.CustomAlertDialog
 import com.nepplus.my_promiseplan.main.LoginActivity
 import com.nepplus.my_promiseplan.modles.BasicResponse
+import com.nepplus.my_promiseplan.settings.ChangePassword
 import com.nepplus.my_promiseplan.settings.MyFriendsActivity
 import com.nepplus.my_promiseplan.utils.ContextUtil
 import com.nepplus.my_promiseplan.utils.GlobalData
@@ -182,11 +183,11 @@ class SettingsFragment : BaseFragment() {
 
 //          비밀번호 변경이벤트
         binding.changePwLayout.setOnClickListener {
-
+            val myIntent = Intent(mContext, ChangePassword::class.java)
+            startActivity(myIntent)
         }
 //          개인 약속 이벤트
         binding.myWorkLayout.setOnClickListener {
-
 
         }
 //          친구 목록 관리 이벤트

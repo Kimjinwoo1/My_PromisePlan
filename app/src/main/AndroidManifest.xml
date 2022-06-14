@@ -14,6 +14,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.My_PromisePlan">
         <activity
+            android:name=".settings.ChangePassword"
+            android:exported="false" />
+        <activity
             android:name=".settings.MyPlanList"
             android:exported="false" />
         <activity

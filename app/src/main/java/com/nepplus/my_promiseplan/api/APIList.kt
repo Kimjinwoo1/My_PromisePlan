@@ -63,6 +63,14 @@ interface APIList {
     @PUT("/user/image")
     fun putRequestUserImage(@Part profileImg : MultipartBody.Part) : Call<BasicResponse>
 
+//    회원 비밀번호 변경
+    @FormUrlEncoded
+    @PATCH("/user/password")
+    fun patchRequestPwChange(
+    @Field("current_password") currentPassword : String,
+    @Field("new_password") newPassword : String,
+    ) : Call<BasicResponse>
+
     @FormUrlEncoded
     @POST("/user/social")
     fun postRequestSocialLogin(
