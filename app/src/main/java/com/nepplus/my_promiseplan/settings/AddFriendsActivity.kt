@@ -49,6 +49,7 @@ class AddFriendsActivity : BasicActivity() {
                     if (response.isSuccessful){
                         val br = response.body()!!
 
+
 //                        리스트 삭제
                         mFriendList.clear()
 //                        서버에서 내려준 새로운 리스트로 다시 덮어준다.
@@ -56,7 +57,7 @@ class AddFriendsActivity : BasicActivity() {
 
 //                        어댑터에 리스트가 바뀌었다는 통보
 //                        RecyclerView의 모든 뷰를 삭제하고 다시 뷰를 생성 비효율적인 코드
-                        mFriendAdapter.notifyDataSetChanged()
+//                        mFriendAdapter.notifyDataSetChanged()
                     }
                 }
 

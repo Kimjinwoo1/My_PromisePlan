@@ -17,11 +17,6 @@ class ChangePassword : BasicActivity() {
 
     lateinit var binding : ActivityChangePasswordBinding
 
-
-
-
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this,R.layout.activity_change_password)
@@ -60,7 +55,7 @@ class ChangePassword : BasicActivity() {
                             val br = response.body()!!
 
                             ContextUtil.setLoginToken(mContext,br.data.token)
-//                            유저가변경 되었을시..
+//                            유저가변경 되었을시.. ex)프로필 사진이나 , 닉네임 같은경우
 //                            GlobalData.loginUser = br.data.user
                             Toast.makeText(mContext, "비밀 번호가 변경 되었습니다.", Toast.LENGTH_SHORT).show()
                             finish()

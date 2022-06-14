@@ -27,6 +27,8 @@ class MyFriendsRecyclerAdapter(
     val type : String,
 ) : RecyclerView.Adapter<MyFriendsRecyclerAdapter.ItemViewHolder>() {
 
+    lateinit var binding : ListItemUserBinding
+
     inner class ItemViewHolder(view : View) : RecyclerView.ViewHolder(view){
 
         val profileImg = view.findViewById<ImageView>(R.id.profileImg)
@@ -42,8 +44,7 @@ class MyFriendsRecyclerAdapter(
             val apiList = SeverApi.getRetrofit(mContext).create(APIList::class.java)
 
             Glide.with(mContext).load(item.profileImg).into(profileImg)
-            nicknameTxt.text = item.nickname
-
+            binding.nicknameTxt.text = item.nickname
 
             when (type){
                 "add" -> {
