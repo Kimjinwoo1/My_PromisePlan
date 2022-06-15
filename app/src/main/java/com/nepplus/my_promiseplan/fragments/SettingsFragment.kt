@@ -242,7 +242,6 @@ class SettingsFragment : BaseFragment() {
     fun setUserData(){
         Glide.with(mContext)
             .load(GlobalData.loginUser!!.profileImg)
-
             .into(binding.profileImg)
         binding.nickNameTxt.text = GlobalData.loginUser!!.nickname
     }

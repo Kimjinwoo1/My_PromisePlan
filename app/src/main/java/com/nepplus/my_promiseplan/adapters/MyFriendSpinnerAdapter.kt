@@ -44,7 +44,7 @@ class MyFriendSpinnerAdapter(
     }
 
     override fun getDropDownView(position: Int, convertView: View?, parent: ViewGroup): View {
-        return super.getDropDownView(position, convertView, parent)
+        return getView(position,convertView,parent)
     }
 
 }
