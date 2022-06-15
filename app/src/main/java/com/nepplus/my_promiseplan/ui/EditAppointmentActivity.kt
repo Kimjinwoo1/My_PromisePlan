@@ -15,6 +15,7 @@ import com.nepplus.my_promiseplan.BasicActivity
 import com.nepplus.my_promiseplan.R
 import com.nepplus.my_promiseplan.adapters.MyFriendSpinnerAdapter
 import com.nepplus.my_promiseplan.databinding.ActivityEditAppointmentBinding
+import com.nepplus.my_promiseplan.modles.AppointmentData
 import com.nepplus.my_promiseplan.modles.BasicResponse
 import com.nepplus.my_promiseplan.modles.UserData
 import com.nepplus.my_promiseplan.utils.SIzeUtil
@@ -36,10 +37,13 @@ class EditAppointmentActivity : BasicActivity() {
     lateinit var mFriendsSpinnerAdapter : MyFriendSpinnerAdapter
     var mSelectedFriendsList = ArrayList<UserData>()
 
+    var appointmentData : AppointmentData? = null
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this,R.layout.activity_edit_appointment)
+        appointmentData = intent.getSerializableExtra("appointmentData")as AppointmentData
         setupEvents()
         setValues()
     }
