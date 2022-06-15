@@ -6,6 +6,11 @@ import retrofit2.Call
 import retrofit2.http.*
 
 interface APIList {
+//    delete
+    @DELETE("/appointment")
+    fun deleteRequest(
+    @Query("appointment_id") appointmentid : Int,
+    ) : Call<BasicResponse>
 
 //    appointment
     @GET("/appointment")
@@ -21,6 +26,18 @@ interface APIList {
     @Field("latitude") latitude: Double,
     @Field("longitude") longitude: Double,
     @Field("friend_list") friendlist : String,
+    ) : Call<BasicResponse>
+
+    @FormUrlEncoded
+    @PUT("/appointment")
+    fun putRequestAddAppointment(
+        @Field("title") title : String,
+        @Field("appointment_id") appointmentId  : Int,
+        @Field("datetime") datetime : String,
+        @Field("place") place : String,
+        @Field("latitude") latitude: Double,
+        @Field("longitude") longitude: Double,
+        @Field("friend_list") friendlist : String,
     ) : Call<BasicResponse>
 
 //    search
