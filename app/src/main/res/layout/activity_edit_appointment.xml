@@ -127,6 +127,14 @@
                     android:layout_height="wrap_content"
                     android:text="약속 등록하기"/>
 
+                <Button
+                    android:id="@+id/deleteBtn"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="10dp"
+                    android:text="약속 삭제하기"
+                    android:visibility="gone"/>
+
             </LinearLayout>
 
         </ScrollView>

@@ -15,6 +15,7 @@ import com.nepplus.my_promiseplan.BasicActivity
 import com.nepplus.my_promiseplan.R
 import com.nepplus.my_promiseplan.adapters.MyFriendSpinnerAdapter
 import com.nepplus.my_promiseplan.databinding.ActivityEditAppointmentBinding
+import com.nepplus.my_promiseplan.dialogs.CustomAlertDialog
 import com.nepplus.my_promiseplan.modles.AppointmentData
 import com.nepplus.my_promiseplan.modles.BasicResponse
 import com.nepplus.my_promiseplan.modles.UserData
@@ -32,7 +33,7 @@ class EditAppointmentActivity : BasicActivity() {
 //      선택할 약속 일시를 저장할 맴버변수
     val mSelectedDateTime = Calendar.getInstance()
 
-//    친구 목록을 담고있는 Spinner 과련 변수
+//    친구 목록을 담고있는 Spinner 관련 변수
     var mFriendsList = ArrayList<UserData>()
     lateinit var mFriendsSpinnerAdapter : MyFriendSpinnerAdapter
     var mSelectedFriendsList = ArrayList<UserData>()
@@ -228,4 +229,9 @@ class EditAppointmentActivity : BasicActivity() {
             }
         })
     }
+
+    fun getData(){
+
+    }
+
 }

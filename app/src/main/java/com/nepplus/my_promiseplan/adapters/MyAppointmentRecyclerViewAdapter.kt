@@ -39,7 +39,7 @@ class MyAppointmentRecyclerViewAdapter (
             binding.placeNameTxt.text = "약속 장소 : ${item.place}"
             binding.memberCountTxt.text = "참여 인원 : ${item.invitedFriends.size}명"
 
-            binding.deleteLayout.setOnClickListener {
+            itemView.setOnClickListener {
                 val myIntent = Intent(mContext, EditAppointmentActivity::class.java)
                 myIntent.putExtra("appointmentData", item)
                 mContext.startActivity(myIntent)
