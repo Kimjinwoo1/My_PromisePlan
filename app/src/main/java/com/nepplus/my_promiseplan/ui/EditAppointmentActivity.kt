@@ -271,12 +271,10 @@ class EditAppointmentActivity : BasicActivity() {
     }
 
     override fun setValues() {
+        titleTxt.text = "새 약속 만들기"
         if (appointmentData != null){
             setData()
         }
-
-        titleTxt.text = "새 약속 만들기"
-
         mFriendsSpinnerAdapter =
             MyFriendSpinnerAdapter(mContext, R.layout.list_item_user, mFriendsList)
         binding.invitedFriendSpinner.adapter = mFriendsSpinnerAdapter
@@ -302,11 +300,14 @@ class EditAppointmentActivity : BasicActivity() {
     }
 
     fun setData() {
-//      수정하기 제목
         titleTxt.text = "약속 수정하기"
+//      수정하기 타이틀
+//        binding.timeTxt.text = "약속 수정하기"
         val appointData = appointmentData!!
+//      수정하기 약속 제목 입력
         binding.titleEdt.setText(appointData.title)
 
+//        일자 시간 수정하기 로직
         val sdf = SimpleDateFormat("yyyy. M. d (E)")
         val sdfTime = SimpleDateFormat("a h:mm")
 
@@ -329,10 +330,11 @@ class EditAppointmentActivity : BasicActivity() {
                 mSelectedFriendsList.add(friend)
             }
         }
+//        장소 입력하기 로직
         binding.placeNameTxt.setText(appointData.place)
-
+//      수정 버튼
         binding.addBtn.text = "약속 수정하기"
-
+//      삭제 버튼 생성
         binding.deleteBtn.visibility = View.VISIBLE
     }
 }
