@@ -22,7 +22,7 @@ abstract class BasicActivity : AppCompatActivity(){
     lateinit var titleTxt : TextView
     lateinit var addBtn : ImageView
 
-    override fun onCreate(savedInstanceState: Bundle?) {
+   override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         mContext = this
 

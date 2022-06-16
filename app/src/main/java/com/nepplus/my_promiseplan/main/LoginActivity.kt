@@ -88,7 +88,7 @@ class LoginActivity : BasicActivity() {
     }
 
     override fun setValues() {
-
+        titleTxt.text = "로그인"
     }
 
     fun kakaoLogin() {

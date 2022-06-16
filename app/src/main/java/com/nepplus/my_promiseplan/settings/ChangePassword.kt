@@ -70,6 +70,6 @@ class ChangePassword : BasicActivity() {
 }
 
     override fun setValues() {
-
+        titleTxt.text = "비밀번호 변경"
     }
 }

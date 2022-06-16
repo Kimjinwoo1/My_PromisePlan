@@ -74,7 +74,7 @@ class SignUpActivity : BasicActivity() {
     }
 
     override fun setValues() {
-
+        titleTxt.text = "회원가입"
     }
 
     fun signUp(){
