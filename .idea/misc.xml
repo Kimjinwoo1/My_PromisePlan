@@ -3,6 +3,7 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Sammi2021nov/caches/transforms-3/ec5e350a39a984fd2c01158e4b1f2f19/transformed/appcompat-1.4.2/res/layout/support_simple_spinner_dropdown_item.xml" value="0.36614583333333334" />
         <entry key="..\:/Users/NePPPlus_001/AndroidStudioProjects/My_PromisePlan/app/src/main/res/layout/activitiy_login.xml" value="0.36614583333333334" />
         <entry key="..\:/Users/NePPPlus_001/AndroidStudioProjects/My_PromisePlan/app/src/main/res/layout/activity_login.xml" value="0.3351851851851852" />
         <entry key="..\:/Users/NePPPlus_001/AndroidStudioProjects/My_PromisePlan/app/src/main/res/layout/activity_main.xml" value="0.3515625" />
@@ -40,6 +41,10 @@
         <entry key="..\:/Users/NePPPlus_001/AndroidStudioProjects/My_PromisePlan00/app/src/main/res/layout/my_custom_ation_bar.xml" value="0.36614583333333334" />
         <entry key="..\:/Users/NePPPlus_001/AndroidStudioProjects/My_PromisePlan10/app/src/main/res/layout/activity_change_password.xml" value="0.1875" />
         <entry key="..\:/Users/NePPPlus_001/AndroidStudioProjects/My_PromisePlan10/app/src/main/res/layout/activity_edit_appointment.xml" value="0.2392638036809816" />
+        <entry key="..\:/Users/NePPPlus_001/AndroidStudioProjects/My_PromisePlan10/app/src/main/res/layout/activity_my_plan.xml" value="0.36614583333333334" />
+        <entry key="..\:/Users/NePPPlus_001/AndroidStudioProjects/My_PromisePlan10/app/src/main/res/layout/fragment_invited_appointments.xml" value="0.36614583333333334" />
+        <entry key="..\:/Users/NePPPlus_001/AndroidStudioProjects/My_PromisePlan10/app/src/main/res/layout/fragment_my_friends_list.xml" value="0.36614583333333334" />
+        <entry key="..\:/Users/NePPPlus_001/AndroidStudioProjects/My_PromisePlan10/app/src/main/res/layout/fragment_request_friends_list.xml" value="0.36614583333333334" />
         <entry key="..\:/Users/NePPPlus_001/AndroidStudioProjects/My_PromisePlan10/app/src/main/res/layout/list_item_appointment.xml" value="0.36614583333333334" />
         <entry key="..\:/Users/NePPPlus_001/AndroidStudioProjects/My_PromisePlan10/app/src/main/res/layout/my_custom_ation_bar.xml" value="0.1875" />
         <entry key="..\:/Users/user/AndroidStudioProjects/My_PromisePlan/app/src/main/res/layout/activity_add_friends.xml" value="0.36614583333333334" />

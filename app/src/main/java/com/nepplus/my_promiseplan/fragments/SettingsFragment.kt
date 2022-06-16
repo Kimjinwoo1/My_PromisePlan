@@ -21,6 +21,7 @@ import com.nepplus.my_promiseplan.main.LoginActivity
 import com.nepplus.my_promiseplan.modles.BasicResponse
 import com.nepplus.my_promiseplan.settings.ChangePassword
 import com.nepplus.my_promiseplan.settings.MyFriendsActivity
+import com.nepplus.my_promiseplan.settings.MyPlan
 import com.nepplus.my_promiseplan.utils.ContextUtil
 import com.nepplus.my_promiseplan.utils.GlobalData
 import com.nepplus.my_promiseplan.utils.URIPathHelper
@@ -188,7 +189,8 @@ class SettingsFragment : BaseFragment() {
         }
 //          개인 약속 이벤트
         binding.myWorkLayout.setOnClickListener {
-
+            val myInetnet = Intent(mContext, MyPlan::class.java)
+            startActivity(myInetnet)
         }
 //          친구 목록 관리 이벤트
         binding.myFriendsLayout.setOnClickListener {
